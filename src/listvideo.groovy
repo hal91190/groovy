@@ -1,7 +1,6 @@
 #!/usr/bin/env groovy
 @Grab(group = 'net.sf.opencsv', module = 'opencsv', version = '2.3')
 import groovy.json.JsonSlurper
-import groovy.transform.ToString
 import au.com.bytecode.opencsv.*
 
 import java.text.Collator
@@ -20,7 +19,6 @@ String[] outputSchema = [
         'Sous-titre idx', 'Codec sous-titre', 'Langues'
 ]
 
-@ToString
 class VideoDescription {
     public static final int INFO_OFFSET = 0;
     public static final int FORMAT_OFFSET = 5;
