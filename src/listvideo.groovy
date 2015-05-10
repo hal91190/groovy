@@ -78,33 +78,35 @@ class VideoDescription {
         def firstDotPosition = videoFile.name.indexOf('.')
         def basename = videoFile.name.substring(0, firstDotPosition)
         def info = [ basename, '', '', '', '' ]
+
         def yearMatcher = basename =~ / \((\d{4})\)$/
         if (yearMatcher) {
             def patternSize = 7
             info[0] = basename.substring(0, basename.size() - patternSize)
             info[2] = yearMatcher.group(1)
         }
+
         basename = info[0]
-        def firstDash = basename.indexOf(' - ')
-        if (firstDash != -1) {
-            String[] elements = basename.split(' - ')
-            switch (elements.size()) {
-                case 3:
-                    info[0] = elements[2]
-                    info[3] = elements[0]
-                    info[4] = elements[1]
-                    if (info[4] ==~ /\d{4}/) {
-                        info[2] = info[4]
-                    }
-                    break
-                case 2:
-                    info[0] = elements[1]
-                    info[3] = elements[0]
-                    break
-                default:
-                    assert false : basename
-            }
+        String[] elements = basename.split(' - ')
+        switch (elements.size()) {
+            case 3:
+                info[0] = elements[2]
+                info[3] = elements[0]
+                info[4] = elements[1]
+                if (info[4] ==~ /\d{4}/) {
+                    info[2] = info[4]
+                }
+                break
+            case 2:
+                info[0] = elements[1]
+                info[3] = elements[0]
+                break
+            case 1:
+                break
+            default:
+                assert false : "Unknown format for ${basename}"
         }
+
         info[1] = info[0]
         def matcherStart = info[0] =~ /^(?i)(l'|le|la|les) /
         if (matcherStart) {
