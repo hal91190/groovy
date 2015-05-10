@@ -121,7 +121,7 @@ class VideoDescription {
         def videoTranspose = video.transpose()
         def audioTranspose = audio.transpose()
         def subtitlesTranspose = subtitles.transpose()
-        def totalSize = info.size() + format.size() + videoTranspose.size() + audioTranspose.size() + subtitlesTranspose.size()
+        def totalSize = [ info, format, videoTranspose, audioTranspose, subtitlesTranspose ]*.size().sum()
         String[] output = [""] * totalSize
 
         0.upto(info.size() - 1) { output[INFO_OFFSET + it] = info[it] }
