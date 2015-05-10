@@ -122,23 +122,14 @@ class VideoDescription {
         def audioTranspose = audio.transpose()
         def subtitlesTranspose = subtitles.transpose()
         def totalSize = info.size() + format.size() + videoTranspose.size() + audioTranspose.size() + subtitlesTranspose.size()
-        String[] output = [""]*totalSize
-        for (i in 0..info.size()-1) {
-            output[INFO_OFFSET + i] = info[i]
-        }
-        for (i in 0..format.size()-1) {
-            output[FORMAT_OFFSET + i] = format[i]
-        }
-        for (i in 0..videoTranspose.size()-1) {
-            output[VIDEO_OFFSET + i] = videoTranspose[i].join(", ")
-        }
-        for (i in 0..audioTranspose.size()-1) {
-            output[AUDIO_OFFSET + i] = audioTranspose[i].join(", ")
-        }
+        String[] output = [""] * totalSize
+
+        0.upto(info.size() - 1) { output[INFO_OFFSET + it] = info[it] }
+        0.upto(format.size() - 1) { output[FORMAT_OFFSET + it] = format[it] }
+        0.upto(videoTranspose.size() - 1) { output[VIDEO_OFFSET + it] = videoTranspose[it].join(", ") }
+        0.upto(audioTranspose.size() - 1) { output[AUDIO_OFFSET + it] = audioTranspose[it].join(", ") }
         if (!subtitlesTranspose.isEmpty()) {
-            for (i in 0..subtitlesTranspose.size() - 1) {
-                output[SUBTITLES_OFFSET + i] = subtitlesTranspose[i].join(", ")
-            }
+            0.upto(subtitlesTranspose.size() - 1) { output[SUBTITLES_OFFSET + it] = subtitlesTranspose[it].join(", ") }
         }
         output
     }
