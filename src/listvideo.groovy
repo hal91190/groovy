@@ -78,11 +78,11 @@ class VideoDescription {
         def firstDotPosition = videoFile.name.indexOf('.')
         def basename = videoFile.name.substring(0, firstDotPosition)
         def info = [ basename, '', '', '', '' ]
-        def openParPosition = basename.lastIndexOf('(')
-        if (openParPosition != -1) {
-            def closeParPosition = basename.lastIndexOf(')')
-            info[0] = basename.substring(0, openParPosition - 1)
-            info[2] = basename.substring(openParPosition + 1, closeParPosition)
+        def yearMatcher = basename =~ / \((\d{4})\)$/
+        if (yearMatcher) {
+            def patternSize = 7
+            info[0] = basename.substring(0, basename.size() - patternSize)
+            info[2] = yearMatcher.group(1)
         }
         basename = info[0]
         def firstDash = basename.indexOf(' - ')
