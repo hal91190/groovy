@@ -71,7 +71,7 @@ class VideoDescription {
     }
 
     private void loadSubtitle(Map stream) {
-        subtitles << [ stream.index, stream.codec_long_name, stream.tags.language ]
+        subtitles << [ stream.index, stream.codec_long_name, stream.tags?.language ]
     }
 
     private List extractInfo() {
