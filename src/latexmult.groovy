@@ -7,7 +7,7 @@ def dim = args[0].toInteger()
     1.upto(dim) { b ->
         def prefix = ''
         def suffix = ''
-        if (b < a) {
+        if (a < b) {
             prefix = '\\textcolor{Gray}{'
             suffix = '}'
         }
